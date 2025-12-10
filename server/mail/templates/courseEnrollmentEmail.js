@@ -74,7 +74,8 @@ exports.courseEnrollmentEmail = (courseName, name) => {
       <!-- Support Info -->
       <div class="support">
         If you have any questions, email us at 
-        <a href="mailto:edunova@gmail.com">edunova@gmail.com</a>
+        <a href="mailto:edunova.test11@gmail.com">edunova.test11@gmail.com
+        </a>
       </div>
     </div>
   </body>

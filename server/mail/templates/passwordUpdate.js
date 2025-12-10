@@ -62,7 +62,7 @@ exports.passwordUpdated = (email, name) => {
       <!-- Support Information -->
       <div class="support">
         Need help? Contact us at 
-        <a href="mailto:edunova@gmail.com">edunova@gmail.com</a>
+        <a href="mailto:edunova.test11@gmail.com">edunova.test11@gmail.com</a>
 
       </div>
     </div>

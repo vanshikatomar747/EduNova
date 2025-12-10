@@ -62,7 +62,8 @@ exports.contactUsEmail = (email, firstname, lastname, message, phoneNo, countryc
       </div>
       <div class="support">
         If you need immediate assistance, email us at 
-        <a href="mailto:edunova@gmail.com">edunova@gmail.com</a>
+        <a href="mailto:edunova.test11@gmail.com">edunova.test11@gmail.com
+        </a>
       </div>
     </div>
   </body>
