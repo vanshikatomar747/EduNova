@@ -4,7 +4,7 @@ require('tls').DEFAULT_MIN_VERSION = 'TLSv1.2';
 const dns = require("dns");
 dns.setDefaultResultOrder("ipv4first");
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@edunovacluster.ywkadts.mongodb.net/EduNova`;
+const uri = process.env.MONGODB_URL || `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@edunovacluster.ywkadts.mongodb.net/EduNova`;
 
 exports.connect = async () => {
   try {
