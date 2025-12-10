@@ -15,6 +15,8 @@ exports.auth = async (req, res, next) => {
       req.body.token ||
       (req.header("Authorization")?.replace("Bearer ", "") || null);
 
+      console.log("Incoming Authorization Header:", req.header("Authorization"));
+      console.log("Extracted Token:", token);
     // If token is missing, return 401 Unauthorized
     if (!token) {
       return res.status(401).json({ success: false, message: "Token Missing" });
