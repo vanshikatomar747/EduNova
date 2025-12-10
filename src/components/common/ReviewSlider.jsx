@@ -38,17 +38,17 @@ function ReviewSlider() {
       <div className="my-[50px] h-[184px] max-w-maxContentTab lg:max-w-maxContent">
         {/* Swiper for review slider */}
         <Swiper
-          slidesPerView={4}
-          spaceBetween={25}
-          loop={true}
-          freeMode={true}
-          autoplay={{
-            delay: 2500,
-            disableOnInteraction: false,
-          }}
-          modules={[FreeMode, Autoplay]}
-          className="w-full"
-        >
+  slidesPerView={reviews.length < 4 ? reviews.length : 4}
+  spaceBetween={25}
+  loop={reviews.length > 4}  // only loop if more than 4 reviews
+  freeMode={true}
+  autoplay={{
+    delay: 2500,
+    disableOnInteraction: false,
+  }}
+  modules={[FreeMode, Autoplay]}
+  className="w-full"
+>
           {reviews.map((review, i) => (
             <SwiperSlide key={i}>
               <div className="flex flex-col gap-3 bg-richblack-800 p-3 text-[14px] text-richblack-25">
