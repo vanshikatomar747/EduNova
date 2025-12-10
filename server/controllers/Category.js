@@ -37,9 +37,21 @@ exports.createCategory = async (req, res) => {
 };
 
 // -------------------- SHOW ALL CATEGORIES --------------------
+// -------------------- SHOW ALL CATEGORIES --------------------
 exports.showAllCategories = async (req, res) => {
+  console.log("=== showAllCategories endpoint hit! ===");
   try {
+    console.log("Attempting to fetch categories from database...");
     const allCategories = await Category.find();
+    console.log("Categories found:", allCategories.length);
+
+    if (allCategories.length === 0) {
+      return res.status(200).json({
+        success: true,
+        message: "No categories found",
+        data: [],
+      });
+    }
 
     return res.status(200).json({
       success: true,
@@ -54,6 +66,7 @@ exports.showAllCategories = async (req, res) => {
     });
   }
 };
+
 
 // -------------------- CATEGORY PAGE DETAILS --------------------
 exports.categoryPageDetails = async (req, res) => {

@@ -116,32 +116,46 @@ exports.getAllUserDetails = async (req, res) => {
 
 exports.updateDisplayPicture = async (req, res) => {
   try {
-    const displayPicture = req.files.displayPicture
-    const userId = req.user.id
+    console.log("REQ.FILES:", req.files);       // check if file is received
+    console.log("REQ.BODY:", req.body);         // should be empty
+    console.log("USER:", req.user);             // check if user is authenticated
+
+    if (!req.files || !req.files.displayPicture) {
+      return res.status(400).json({
+        success: false,
+        message: "No file uploaded"
+      });
+    }
+
+    const displayPicture = req.files.displayPicture;
+
     const image = await uploadImageToCloudinary(
       displayPicture,
       process.env.FOLDER_NAME,
       1000,
       1000
-    )
-    console.log(image)
+    );
+    console.log("CLOUDINARY RESPONSE:", image);
+
     const updatedProfile = await User.findByIdAndUpdate(
-      { _id: userId },
+      req.user.id,
       { image: image.secure_url },
       { new: true }
-    )
+    );
+
     res.send({
       success: true,
       message: `Image Updated successfully`,
       data: updatedProfile,
-    })
+    });
   } catch (error) {
+    console.error("UPDATE DISPLAY PICTURE ERROR:", error);
     return res.status(500).json({
       success: false,
       message: error.message,
-    })
+    });
   }
-}
+};
 
 exports.getEnrolledCourses = async (req, res) => {
   try {
