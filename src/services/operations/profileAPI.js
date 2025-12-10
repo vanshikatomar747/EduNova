@@ -17,6 +17,8 @@ export function getUserDetails(token, navigate) {
     dispatch(setLoading(true));
 
     try {
+      console.log("Final API URL:", GET_USER_DETAILS_API);
+      console.log("Token being sent:", token);
       const response = await apiConnector("GET", GET_USER_DETAILS_API, null, {
         Authorization: `Bearer ${token}`,
       });

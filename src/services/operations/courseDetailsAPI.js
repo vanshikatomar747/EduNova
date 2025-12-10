@@ -1,6 +1,7 @@
 import { toast } from "react-hot-toast"
 import { apiConnector } from "../apiConnector"
 import { courseEndpoints } from "../apis"
+//import { categories } from "../apis"
 
 const {
   COURSE_DETAILS_API,

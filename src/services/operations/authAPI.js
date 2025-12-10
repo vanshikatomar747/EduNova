@@ -88,6 +88,8 @@ export function signUp(
 // -------------------- LOGIN --------------------
 export function login(email, password, navigate) {
   return async (dispatch) => {
+    console.log("API Base URL:", process.env.REACT_APP_BASE_URL);
+    console.log("Full URL:", `${process.env.REACT_APP_BASE_URL}/auth/login`);
     const toastId = toast.loading("Loading...")
     dispatch(setLoading(true))
 
