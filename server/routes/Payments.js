@@ -11,7 +11,7 @@ const {
 } = require("../controllers/payments");
 
 // Import authentication and role-based middlewares
-const { auth, isStudent } = require("../middlewares/auth");
+const { auth, isStudent } = require("../middleware/auth");
 
 // ********************************************************************************************
 //                                      PAYMENT ROUTES

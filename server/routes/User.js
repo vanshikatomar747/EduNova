@@ -7,7 +7,7 @@ const { login, signup, sendotp, changePassword } = require("../controllers/Auth"
 const { resetPasswordToken, resetPassword } = require("../controllers/ResetPassword");
 
 // Import middleware for authentication
-const { auth } = require("../middlewares/auth");
+const { auth } = require("../middleware/auth");
 
 // ****************************************************************************************************
 //                                      Authentication Routes
