@@ -30,7 +30,7 @@ export default function CourseInformationForm() {
   const { token } = useSelector((state) => state.auth)
   const { course, editCourse } = useSelector((state) => state.course)
   const [loading, setLoading] = useState(false)
-  const [courseCategories, setCourseCategories] = useState([])
+  const [ courseCategories , setCourseCategories] = useState([])
 
   useEffect(() => {
     const getCategories = async () => {
@@ -120,8 +120,10 @@ export default function CourseInformationForm() {
           )
         }
         if (currentValues.courseImage !== course.thumbnail) {
+          // backend expects "thumbnailImage"
           formData.append("thumbnailImage", data.courseImage)
         }
+        
         // console.log("Edit Form data: ", formData)
         setLoading(true)
         const result = await editCourseDetails(formData, token)
@@ -137,15 +139,23 @@ export default function CourseInformationForm() {
     }
 
     const formData = new FormData()
-    formData.append("courseName", data.courseTitle)
-    formData.append("courseDescription", data.courseShortDesc)
-    formData.append("price", data.coursePrice)
-    formData.append("tag", JSON.stringify(data.courseTags))
-    formData.append("whatYouWillLearn", data.courseBenefits)
-    formData.append("category", data.courseCategory)
-    formData.append("status", COURSE_STATUS.DRAFT)
-    formData.append("instructions", JSON.stringify(data.courseRequirements))
-    formData.append("thumbnailImage", data.courseImage)
+formData.append("courseName", data.courseTitle)
+formData.append("courseDescription", data.courseShortDesc)
+formData.append("price", data.coursePrice)
+
+// backend expects "tag" not "tags"
+formData.append("tag", JSON.stringify(data.courseTags))
+
+formData.append("whatYouWillLearn", data.courseBenefits)
+formData.append("category", data.courseCategory)
+formData.append("status", COURSE_STATUS.DRAFT)
+
+// backend expects "instructions"
+formData.append("instructions", JSON.stringify(data.courseRequirements))
+
+// backend expects "thumbnailImage"
+formData.append("thumbnailImage", data.courseImage)
+
     setLoading(true)
     const result = await addCourseDetails(formData, token)
     if (result) {
@@ -221,32 +231,31 @@ export default function CourseInformationForm() {
         )}
       </div>
       {/* Course Category */}
-      <div className="flex flex-col space-y-2">
-        <label className="text-sm text-richblack-5" htmlFor="courseCategory">
-          Course Category <sup className="text-pink-200">*</sup>
-        </label>
-        <select
-          {...register("courseCategory", { required: true })}
-          defaultValue=""
-          id="courseCategory"
-          className="form-style w-full"
-        >
-          <option value="" disabled>
-            Choose a Category
-          </option>
-          {!loading &&
-            courseCategories?.map((category, indx) => (
-              <option key={indx} value={category?._id}>
-                {category?.name}
-              </option>
-            ))}
-        </select>
-        {errors.courseCategory && (
-          <span className="ml-2 text-xs tracking-wide text-pink-200">
-            Course Category is required
-          </span>
-        )}
-      </div>
+      <select
+  {...register("courseCategory", { required: true })}
+  defaultValue=""
+  id="courseCategory"
+  className="form-style w-full"
+>
+  <option value="" disabled>
+    Choose a Category
+  </option>
+
+  {!loading && courseCategories?.length > 0 ? (
+    courseCategories.map((category, indx) => (
+      <option key={indx} value={category?._id}>
+        {category?.name}
+      </option>
+    ))
+  ) : (
+    !loading && (
+      <option value="" disabled>
+        No categories available
+      </option>
+    )
+  )}
+</select>
+
       {/* Course Tags */}
       <ChipInput
         label="Tags"
@@ -304,6 +313,7 @@ export default function CourseInformationForm() {
           </button>
         )}
         <IconBtn
+          type="submit"
           disabled={loading}
           text={!editCourse ? "Next" : "Save Changes"}
         >
